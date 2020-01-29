@@ -11,6 +11,7 @@ class ProductProvider extends Component {
 
         this.state = {
             product: [],
+            productData: [],
             detailProduct: detailProduct,
             cart:[],
             modalOpen: false,
@@ -34,13 +35,31 @@ class ProductProvider extends Component {
     }
 
     componentDidMount(){
-        this.setProducts()
+        this.getData()
+        // this.setProducts()
         // console.log(this.state.product)
+    }
+
+    getData(){
+        axios.get('http://127.0.0.1:8000/product')
+        .then(res => {
+            this.setState({
+                productData:res.data,
+            },()=>{
+                this.setProducts()
+                console.log(this.state.productData)
+            })
+
+        })
+        .catch(err => {
+            console.error(err);
+        })
     }
 
     setProducts(){
         let temProduct = []
-        storeProducts.forEach(item => {
+        const pro = this.state.productData
+        pro.forEach(item => {
             const singleItem = {...item};
             temProduct = [...temProduct, singleItem]
         })
