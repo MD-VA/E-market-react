@@ -8,7 +8,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>E_market</title>
-
+    <!-- add icon link -->
+    <link rel = "icon" href =
+    "https://pngimage.net/wp-content/uploads/2018/06/online-store-icon-png-3.png"
+            type = "image/x-icon">
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
     {{-- Font awesome --}}

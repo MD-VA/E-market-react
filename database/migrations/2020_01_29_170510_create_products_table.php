@@ -20,8 +20,8 @@ class CreateProductsTable extends Migration
             $table->text('info');
             $table->boolean('inCart');
             $table->decimal('count');
-            $table->decimal('total');
-            $table->decimal('price', 20, 2);
+            $table->decimal('total', 20, 2);
+            $table->double('price');
             $table->string('img');
             $table->timestamps();
         });

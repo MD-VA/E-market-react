@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 // import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
-// import SuccessAlert from '../category/SuccessAlert'
-// import ErrorAlert from '../category/ErrorAlert'
+import SuccessAlert from './SuccessAlert'
+import ErrorAlert from './ErrorAlert'
 import axios from 'axios';
 
 
@@ -129,11 +129,11 @@ export default class Add extends Component {
         <div className="col-12">
 
 
-            {/* {this.state.alert_message =='success'?<SuccessAlert message={"Categorie added successfully."}/>:null}
-            {this.state.alert_message =='error'?<ErrorAlert message={"Error occured."}/>:null} */}
+            {this.state.alert_message =='success'?<SuccessAlert message={"Product added successfully."}/>:null}
+            {this.state.alert_message =='error'?<ErrorAlert message={"Error occured."}/>:null}
 
           <form onSubmit={this.onSubmit}>
-            <p className="h4 text-center mb-4">Add</p>
+            <p className="h2 text-center my-4 text-danger">Add</p>
 
             <label  className="grey-text">
               product title
@@ -225,9 +225,9 @@ export default class Add extends Component {
             /> */}
             {/* <br /> */}
 
-            <div className="text-center mt-4">
-              <button color="unique" type="submit">
-                Register
+            <div className="text-center my-4">
+              <button color="unique" type="submit" class="btn btn-info">
+                    ADD
               </button>
             </div>
           </form>

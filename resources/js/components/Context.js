@@ -6,6 +6,7 @@ const ProductContext = React.createContext()
 //Consumer
 
 class ProductProvider extends Component {
+
     constructor(props){
         super(props)
 
@@ -19,6 +20,9 @@ class ProductProvider extends Component {
             cartSubTotal: 0,
             cartTax: 0,
             cartTotal: 0,
+            isLoading: true,
+            _isMounted:false
+
         }
         this.getItem = this.getItem.bind(this)
         this.handelDetail = this.handelDetail.bind(this)
@@ -30,12 +34,23 @@ class ProductProvider extends Component {
         this.removeItem = this.removeItem.bind(this)
         this.clearCart = this.clearCart.bind(this)
         this.addTotal = this.addTotal.bind(this)
-
+        this.dataRefresh = this.dataRefresh.bind(this)
+        this.componentDidMount = this.componentDidMount.bind(this)
 
     }
 
+
     componentDidMount(){
-        this.getData()
+
+        // the database method
+        this.setState({
+            _isMounted:true
+        },()=>{
+            this.getData()
+        })
+
+
+        // the normal data method
         // this.setProducts()
         // console.log(this.state.product)
     }
@@ -43,18 +58,61 @@ class ProductProvider extends Component {
     getData(){
         axios.get('http://127.0.0.1:8000/product')
         .then(res => {
-            this.setState({
-                productData:res.data,
-            },()=>{
-                this.setProducts()
-                console.log(this.state.productData)
-            })
+            if (this.state._isMounted) {
+                this.setState({
+                    isLoading: false,
+                    productData:res.data,
+                },()=>{
+                    // this.dataRefresh()
+                    this.setProducts()
+                    console.log(this.state.productData)
+                })
+              }
 
         })
         .catch(err => {
             console.error(err);
         })
     }
+
+    dataRefresh(){
+        // this.getData()
+        axios.get('http://127.0.0.1:8000/product')
+        .then(res => {
+            if (this.state._isMounted) {
+                this.setState({
+                    isLoading: false,
+                    productData:res.data,
+                })
+              }
+
+        })
+
+        let newData = [...this.state.productData]
+        let temProduct = [...this.state.product]
+        console.log(newData)
+        for(var i = 1; i <= newData.length; i++){
+            let n = newData[i].id
+            let t = temProduct[i].id
+            if(n !== t){
+                newData = n
+                console.log('the new data',newData)
+                this.setState({
+                    productData:[...temProduct, newData],
+                },()=>{
+                    // console.log('the new DATA',this.state.productData)
+                    this.setProducts()
+                })
+            }
+            }
+        // newData = newData.filter(item => item.id !== temProduct )
+    }
+
+    componentWillUnmount() {
+        // this._isMounted = false;
+        this.state._isMounted = false
+
+      }
 
     setProducts(){
         let temProduct = []
@@ -65,7 +123,10 @@ class ProductProvider extends Component {
         })
 
         this.setState(()=>{
-        return {product: temProduct}
+        return {
+            product: temProduct,
+            _isMounted:false
+        }
         })
 
 
@@ -137,8 +198,8 @@ class ProductProvider extends Component {
         product.count = product.count - 1
 
         if(product.count === 0){
-            this.removeItem(id)
-            // product.count=1
+            // this.removeItem(id)
+            product.count=1
         }
         else{
             product.total = product.count * product.price
@@ -206,7 +267,8 @@ class ProductProvider extends Component {
                 increment:this.increment,
                 decrement:this.decrement,
                 removeItem:this.removeItem,
-                clearCart:this.clearCart
+                clearCart:this.clearCart,
+                dataRefresh:this.componentDidMount
             }}>
                 {this.props.children}
             </ProductContext.Provider>

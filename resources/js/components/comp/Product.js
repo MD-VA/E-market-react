@@ -8,7 +8,7 @@ export default class Product extends Component {
 
     render() {
         const {id, title, img, price, inCart} = this.props.product
-        const image = 'img/'
+        // const image = 'img/'
         // let product = this.props.product
         return (
             <ProductWrapper className='col-9 mx-auto col-md-6 col-lg-3 my-3'>
@@ -17,7 +17,7 @@ export default class Product extends Component {
                      {(value) =>
 
                          (
-
+                        // <div>
                         <div className='img-container p-5' onClick={()=>
                             value.handelDetail(id)
                         }>
@@ -36,7 +36,11 @@ export default class Product extends Component {
                                 }
                             </button>
 
+
                         </div>
+                        // {/* <button type='button' onClick={()=>{value.dataRefresh()}}>data</button> */}
+                        // {/* </div> */}
+
                          )
                      }
 
@@ -46,7 +50,6 @@ export default class Product extends Component {
                     <p className='align-self-center mb-0'>{title}</p>
                     <h5 className='text-blue font-italic mb-0'>
                         {price}<span className='ml-1'>Dhs</span>
-
                     </h5>
                 </div>
 
@@ -56,16 +59,16 @@ export default class Product extends Component {
     }
 }
 
-Product.propTypes ={
-    product: PropTypes.shape({
-        id: PropTypes.number,
-        img: PropTypes.string,
-        title: PropTypes.string,
-        price: PropTypes.number,
-        inCart: PropTypes.bool,
+// Product.propTypes ={
+//     product: PropTypes.shape({
+//         id: PropTypes.number,
+//         img: PropTypes.string,
+//         title: PropTypes.string,
+//         price: PropTypes.number,
+//         inCart: PropTypes.bool,
 
-    }).isRequired
-}
+//     }).isRequired
+// }
 
 const ProductWrapper = styled.div`
 .card{
@@ -80,8 +83,8 @@ const ProductWrapper = styled.div`
 &:hover{
     .card{
         border:0.4rem solid rgba(0,0,0.2);
-        box-shadow: 2px 2px 5px 0px rgba(0,0,0.2);
-        background-color: grey;
+        box-shadow: 1px 1px 2px 0px rgba(0,0,0.2);
+        background-color: white;
     }
     .card-footer{
         background:rgba(247,247,247);
