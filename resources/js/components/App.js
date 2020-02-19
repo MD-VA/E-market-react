@@ -14,9 +14,8 @@ import Navbar from './comp/Navbar';
 import ProductList from './comp/ProductList';
 import Index from './comp/product/Index'
 import Modal from './comp/Modal';
-// import logo from './logo.svg';
-// import 'bootstrap/dist/css/bootstrap.min.css'
-// import './App.css';
+import Footer from './comp/Footer';
+
 
 export default class App extends Component {
     render(){
@@ -40,6 +39,7 @@ export default class App extends Component {
         </Switch>
 
         <Modal/>
+        <Footer/>
 
     </Fragment>
   );
